@@ -24,7 +24,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('sass', function () {
-	return gulp.src('client/styles/*.sass')
+	return gulp.src('server/styles/*.sass')
 		.pipe(!config.production ? sourcemaps.init({
 			loadMaps: true
 		}) : minifyCSS())
@@ -34,7 +34,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('babel', function () {
-	return gulp.src('client/javascript/*.js')
+	return gulp.src('server/javascript/*.js')
 		.pipe(!config.production ? sourcemaps.init({
 			loadMaps: true
 		}) : uglify())
@@ -47,9 +47,11 @@ gulp.task('babel', function () {
 
 gulp.task('concat:js', function () {
 	return gulp.src([
-			'node_modules/react/umd/react.production.min.js',
-			'node_modules/react-dom/umd/react-dom.production.min.js',
-			'node_modules/jquery/dist/jquery.min.js'
+			// 'node_modules/react/umd/react.production.min.js',
+			// 'node_modules/react-dom/umd/react-dom.production.min.js',
+			"node_modules/jquery/dist/jquery.js",
+			"node_modules/popper.js/dist/umd/popper.js",
+			"node_modules/bootstrap/dist/js/bootstrap.js",
 		])
 		.pipe(!config.production ? sourcemaps.init({
 			loadMaps: true
@@ -74,8 +76,8 @@ gulp.task('concat:css', function () {
 });
 
 gulp.task('watch', function () {
-	gulp.watch('client/javascript/*.js', ['babel']);
-	gulp.watch('client/styles/*.sass', ['sass']);
+	gulp.watch('server/javascript/*.js', ['babel']);
+	gulp.watch('server/styles/*.sass', ['sass']);
 });
 
 gulp.task('default', function (callback) {

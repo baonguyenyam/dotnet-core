@@ -1,3 +1,7 @@
+> brew services start mongodb
+> brew services stop mongodb
+
+
 ## The MIT License (MIT)
 
 ##### Copyright (c) 2014-2018 Bao Nguyen

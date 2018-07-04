@@ -435,7 +435,7 @@ exports.postClockwork = (req, res, next) => {
   const message = {
     To: req.body.telephone,
     From: 'Hackathon',
-    Content: 'Hello from the Hackathon Starter'
+    Content: 'Hello from the Demo'
   };
   clockwork.sendSms(message, (err, responseData) => {
     if (err) { return next(err.errDesc); }
@@ -507,7 +507,7 @@ exports.getPayPal = (req, res, next) => {
       cancel_url: process.env.PAYPAL_CANCEL_URL
     },
     transactions: [{
-      description: 'Hackathon Starter',
+      description: 'Demo',
       amount: {
         currency: 'USD',
         total: '1.99'

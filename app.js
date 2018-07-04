@@ -29,10 +29,10 @@ dotenv.load({ path: '.env.example' });
 /**
  * Controllers (route handlers).
  */
-const homeController = require('./client/app/controllers/home');
-const userController = require('./client/app/controllers/user');
-const apiController = require('./client/app/controllers/api');
-const contactController = require('./client/app/controllers/contact');
+const homeController = require('./server/app/controllers/home');
+const userController = require('./server/app/controllers/user');
+const apiController = require('./server/app/controllers/api');
+const contactController = require('./server/app/controllers/contact');
 
 /**
  * API keys and Passport configuration.
@@ -60,8 +60,8 @@ mongoose.connection.on('error', (err) => {
 app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
 app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jsx');
-app.engine('jsx', reactViews.createEngine({ beautify: true }));
+app.set('view engine', 'pug');
+// app.engine('jsx', reactViews.createEngine({ beautify: true }));
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));
