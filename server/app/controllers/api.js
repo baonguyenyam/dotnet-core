@@ -269,7 +269,7 @@ exports.postTwitter = (req, res, next) => {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/api/twitter');
+    return res.redirect('/admin/api/twitter');
   }
 
   const token = req.user.tokens.find(token => token.kind === 'twitter');
@@ -282,7 +282,7 @@ exports.postTwitter = (req, res, next) => {
   T.post('statuses/update', { status: req.body.tweet }, (err) => {
     if (err) { return next(err); }
     req.flash('success', { msg: 'Your tweet has been posted.' });
-    res.redirect('/api/twitter');
+    res.redirect('/admin/api/twitter');
   });
 };
 
@@ -374,10 +374,10 @@ exports.postStripe = (req, res) => {
   }, (err) => {
     if (err && err.type === 'StripeCardError') {
       req.flash('errors', { msg: 'Your card has been declined.' });
-      return res.redirect('/api/stripe');
+      return res.redirect('/admin/api/stripe');
     }
     req.flash('success', { msg: 'Your card has been successfully charged.' });
-    res.redirect('/api/stripe');
+    res.redirect('/admin/api/stripe');
   });
 };
 
@@ -403,7 +403,7 @@ exports.postTwilio = (req, res, next) => {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/api/twilio');
+    return res.redirect('/admin/api/twilio');
   }
 
   const message = {
@@ -413,7 +413,7 @@ exports.postTwilio = (req, res, next) => {
   };
   twilio.messages.create(message).then((sentMessage) => {
     req.flash('success', { msg: `Text send to ${sentMessage.to}` });
-    res.redirect('/api/twilio');
+    res.redirect('/admin/api/twilio');
   }).catch(next);
 };
 
@@ -440,7 +440,7 @@ exports.postClockwork = (req, res, next) => {
   clockwork.sendSms(message, (err, responseData) => {
     if (err) { return next(err.errDesc); }
     req.flash('success', { msg: `Text sent to ${responseData.responses[0].to}` });
-    res.redirect('/api/clockwork');
+    res.redirect('/admin/api/clockwork');
   });
 };
 
@@ -583,7 +583,7 @@ exports.getFileUpload = (req, res) => {
 
 exports.postFileUpload = (req, res) => {
   req.flash('success', { msg: 'File was uploaded successfully.' });
-  res.redirect('/api/upload');
+  res.redirect('/admin/api/upload');
 };
 
 /**
@@ -614,7 +614,7 @@ exports.postPinterest = (req, res, next) => {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/api/pinterest');
+    return res.redirect('/admin/api/pinterest');
   }
 
   const token = req.user.tokens.find(token => token.kind === 'pinterest');
@@ -629,10 +629,10 @@ exports.postPinterest = (req, res, next) => {
     if (err) { return next(err); }
     if (request.statusCode !== 201) {
       req.flash('errors', { msg: JSON.parse(body).message });
-      return res.redirect('/api/pinterest');
+      return res.redirect('/admin/api/pinterest');
     }
     req.flash('success', { msg: 'Pin created' });
-    res.redirect('/api/pinterest');
+    res.redirect('/admin/api/pinterest');
   });
 };
 

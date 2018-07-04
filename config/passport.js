@@ -63,7 +63,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_ID,
   clientSecret: process.env.FACEBOOK_SECRET,
-  callbackURL: '/auth/facebook/callback',
+  callbackURL: '/admin/auth/facebook/callback',
   profileFields: ['name', 'email', 'link', 'locale', 'timezone', 'gender'],
   passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
@@ -123,7 +123,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_ID,
   clientSecret: process.env.GITHUB_SECRET,
-  callbackURL: '/auth/github/callback',
+  callbackURL: '/admin/auth/github/callback',
   passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
   if (req.user) {
@@ -181,7 +181,7 @@ passport.use(new GitHubStrategy({
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_KEY,
   consumerSecret: process.env.TWITTER_SECRET,
-  callbackURL: '/auth/twitter/callback',
+  callbackURL: '/admin/auth/twitter/callback',
   passReqToCallback: true
 }, (req, accessToken, tokenSecret, profile, done) => {
   if (req.user) {
@@ -235,7 +235,7 @@ passport.use(new TwitterStrategy({
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_ID,
   clientSecret: process.env.GOOGLE_SECRET,
-  callbackURL: '/auth/google/callback',
+  callbackURL: '/admin/auth/google/callback',
   passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
   if (req.user) {
@@ -355,7 +355,7 @@ passport.use(new LinkedInStrategy({
 passport.use(new InstagramStrategy({
   clientID: process.env.INSTAGRAM_ID,
   clientSecret: process.env.INSTAGRAM_SECRET,
-  callbackURL: '/auth/instagram/callback',
+  callbackURL: '/admin/auth/instagram/callback',
   passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
   if (req.user) {
@@ -411,7 +411,7 @@ passport.use('tumblr', new OAuthStrategy({
   userAuthorizationURL: 'https://www.tumblr.com/oauth/authorize',
   consumerKey: process.env.TUMBLR_KEY,
   consumerSecret: process.env.TUMBLR_SECRET,
-  callbackURL: '/auth/tumblr/callback',
+  callbackURL: '/admin/auth/tumblr/callback',
   passReqToCallback: true
 },
 (req, token, tokenSecret, profile, done) => {
@@ -537,7 +537,7 @@ exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.redirect('/admin/login');
 };
 
 /**
@@ -549,6 +549,6 @@ exports.isAuthorized = (req, res, next) => {
   if (token) {
     next();
   } else {
-    res.redirect(`/auth/${provider}`);
+    res.redirect(`/admin/auth/${provider}`);
   }
 };

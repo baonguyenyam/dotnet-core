@@ -12,7 +12,7 @@ const randomBytesAsync = promisify(crypto.randomBytes);
  */
 exports.getLogin = (req, res) => {
   if (req.user) {
-    return res.redirect('/');
+    return res.redirect('/admin/');
   }
   res.render('account/login', {
     title: 'Login'
@@ -32,19 +32,19 @@ exports.postLogin = (req, res, next) => {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/login');
+    return res.redirect('/admin/login');
   }
 
   passport.authenticate('local', (err, user, info) => {
     if (err) { return next(err); }
     if (!user) {
       req.flash('errors', info);
-      return res.redirect('/login');
+      return res.redirect('/admin/login');
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
+      res.redirect(req.session.returnTo || '/admin/');
     });
   })(req, res, next);
 };
@@ -58,7 +58,7 @@ exports.logout = (req, res) => {
   req.session.destroy((err) => {
     if (err) console.log('Error : Failed to destroy the session during logout.', err);
     req.user = null;
-    res.redirect('/');
+    res.redirect('/admin/');
   });
 };
 
@@ -68,7 +68,7 @@ exports.logout = (req, res) => {
  */
 exports.getSignup = (req, res) => {
   if (req.user) {
-    return res.redirect('/');
+    return res.redirect('/admin/');
   }
   res.render('account/signup', {
     title: 'Create Account'
@@ -90,7 +90,7 @@ exports.postSignup = (req, res, next) => {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/signup');
+    return res.redirect('/admin/signup');
   }
 
   const user = new User({
@@ -103,7 +103,7 @@ exports.postSignup = (req, res, next) => {
     if (err) { return next(err); }
     if (existingUser) {
       req.flash('errors', { msg: 'Account with that email address already exists.' });
-      return res.redirect('/signup');
+      return res.redirect('/admin/signup');
     }
     user.save((err) => {
       if (err) { return next(err); }
@@ -111,7 +111,7 @@ exports.postSignup = (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.redirect('/');
+        res.redirect('/admin/');
       });
     });
   });
@@ -139,7 +139,7 @@ exports.postUpdateProfile = (req, res, next) => {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/account');
+    return res.redirect('/admin/account');
   }
 
   User.findById(req.user.id, (err, user) => {
@@ -153,12 +153,12 @@ exports.postUpdateProfile = (req, res, next) => {
       if (err) {
         if (err.code === 11000) {
           req.flash('errors', { msg: 'The email address you have entered is already associated with an account.' });
-          return res.redirect('/account');
+          return res.redirect('/admin/account');
         }
         return next(err);
       }
       req.flash('success', { msg: 'Profile information has been updated.' });
-      res.redirect('/account');
+      res.redirect('/admin/account');
     });
   });
 };
@@ -175,7 +175,7 @@ exports.postUpdatePassword = (req, res, next) => {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/account');
+    return res.redirect('/admin/account');
   }
 
   User.findById(req.user.id, (err, user) => {
@@ -184,7 +184,7 @@ exports.postUpdatePassword = (req, res, next) => {
     user.save((err) => {
       if (err) { return next(err); }
       req.flash('success', { msg: 'Password has been changed.' });
-      res.redirect('/account');
+      res.redirect('/admin/account');
     });
   });
 };
@@ -198,7 +198,7 @@ exports.postDeleteAccount = (req, res, next) => {
     if (err) { return next(err); }
     req.logout();
     req.flash('info', { msg: 'Your account has been deleted.' });
-    res.redirect('/');
+    res.redirect('/admin/');
   });
 };
 
@@ -215,7 +215,7 @@ exports.getOauthUnlink = (req, res, next) => {
     user.save((err) => {
       if (err) { return next(err); }
       req.flash('info', { msg: `${provider} account has been unlinked.` });
-      res.redirect('/account');
+      res.redirect('/admin/account');
     });
   });
 };
@@ -226,7 +226,7 @@ exports.getOauthUnlink = (req, res, next) => {
  */
 exports.getReset = (req, res, next) => {
   if (req.isAuthenticated()) {
-    return res.redirect('/');
+    return res.redirect('/admin/');
   }
   User
     .findOne({ passwordResetToken: req.params.token })
@@ -235,7 +235,7 @@ exports.getReset = (req, res, next) => {
       if (err) { return next(err); }
       if (!user) {
         req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
-        return res.redirect('/forgot');
+        return res.redirect('/admin/forgot');
       }
       res.render('account/reset', {
         title: 'Password Reset'
@@ -301,7 +301,7 @@ exports.postReset = (req, res, next) => {
 
   resetPassword()
     .then(sendResetPasswordEmail)
-    .then(() => { if (!res.finished) res.redirect('/'); })
+    .then(() => { if (!res.finished) res.redirect('/admin/'); })
     .catch(err => next(err));
 };
 
@@ -311,7 +311,7 @@ exports.postReset = (req, res, next) => {
  */
 exports.getForgot = (req, res) => {
   if (req.isAuthenticated()) {
-    return res.redirect('/');
+    return res.redirect('/admin/');
   }
   res.render('account/forgot', {
     title: 'Forgot Password'
@@ -330,7 +330,7 @@ exports.postForgot = (req, res, next) => {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/forgot');
+    return res.redirect('/admin/forgot');
   }
 
   const createRandomToken = randomBytesAsync(16)
@@ -378,6 +378,6 @@ exports.postForgot = (req, res, next) => {
   createRandomToken
     .then(setRandomToken)
     .then(sendForgotPasswordEmail)
-    .then(() => res.redirect('/forgot'))
+    .then(() => res.redirect('/admin/forgot'))
     .catch(next);
 };

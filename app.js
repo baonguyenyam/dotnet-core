@@ -114,103 +114,103 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-app.get('/', homeController.index);
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
-app.get('/forgot', userController.getForgot);
-app.post('/forgot', userController.postForgot);
-app.get('/reset/:token', userController.getReset);
-app.post('/reset/:token', userController.postReset);
-app.get('/signup', userController.getSignup);
-app.post('/signup', userController.postSignup);
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
-app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
-app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
-app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
-app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
-app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
+app.get('/admin/', passportConfig.isAuthenticated, homeController.index);
+app.get('/admin/login', userController.getLogin);
+app.post('/admin/login', userController.postLogin);
+app.get('/admin/logout', userController.logout);
+app.get('/admin/forgot', userController.getForgot);
+app.post('/admin/forgot', userController.postForgot);
+app.get('/admin/reset/:token', userController.getReset);
+app.post('/admin/reset/:token', userController.postReset);
+app.get('/admin/signup', passportConfig.isAuthenticated, userController.getSignup);
+app.post('/admin/signup', passportConfig.isAuthenticated, userController.postSignup);
+app.get('/admin/contact', contactController.getContact);
+app.post('/admin/contact', contactController.postContact);
+app.get('/admin/account', passportConfig.isAuthenticated, userController.getAccount);
+app.post('/admin/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
+app.post('/admin/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
+app.post('/admin/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
+app.get('/admin/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
 /**
  * API examples routes.
  */
-app.get('/api', apiController.getApi);
-app.get('/api/lastfm', apiController.getLastfm);
-app.get('/api/nyt', apiController.getNewYorkTimes);
-app.get('/api/aviary', apiController.getAviary);
-app.get('/api/steam', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getSteam);
-app.get('/api/stripe', apiController.getStripe);
-app.post('/api/stripe', apiController.postStripe);
-app.get('/api/scraping', apiController.getScraping);
-app.get('/api/twilio', apiController.getTwilio);
-app.post('/api/twilio', apiController.postTwilio);
-app.get('/api/clockwork', apiController.getClockwork);
-app.post('/api/clockwork', apiController.postClockwork);
-app.get('/api/foursquare', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFoursquare);
-app.get('/api/tumblr', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTumblr);
-app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
-app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
-app.get('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTwitter);
-app.post('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.postTwitter);
-app.get('/api/linkedin', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getLinkedin);
-app.get('/api/instagram', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getInstagram);
-app.get('/api/paypal', apiController.getPayPal);
-app.get('/api/paypal/success', apiController.getPayPalSuccess);
-app.get('/api/paypal/cancel', apiController.getPayPalCancel);
-app.get('/api/lob', apiController.getLob);
-app.get('/api/upload', apiController.getFileUpload);
-app.post('/api/upload', upload.single('myFile'), apiController.postFileUpload);
-app.get('/api/pinterest', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getPinterest);
-app.post('/api/pinterest', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.postPinterest);
-app.get('/api/google-maps', apiController.getGoogleMaps);
+app.get('/admin/api', apiController.getApi);
+app.get('/admin/api/lastfm', apiController.getLastfm);
+app.get('/admin/api/nyt', apiController.getNewYorkTimes);
+app.get('/admin/api/aviary', apiController.getAviary);
+app.get('/admin/api/steam', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getSteam);
+app.get('/admin/api/stripe', apiController.getStripe);
+app.post('/admin/api/stripe', apiController.postStripe);
+app.get('/admin/api/scraping', apiController.getScraping);
+app.get('/admin/api/twilio', apiController.getTwilio);
+app.post('/admin/api/twilio', apiController.postTwilio);
+app.get('/admin/api/clockwork', apiController.getClockwork);
+app.post('/admin/api/clockwork', apiController.postClockwork);
+app.get('/admin/api/foursquare', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFoursquare);
+app.get('/admin/api/tumblr', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTumblr);
+app.get('/admin/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
+app.get('/admin/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
+app.get('/admin/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTwitter);
+app.post('/admin/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.postTwitter);
+app.get('/admin/api/linkedin', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getLinkedin);
+app.get('/admin/api/instagram', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getInstagram);
+app.get('/admin/api/paypal', apiController.getPayPal);
+app.get('/admin/api/paypal/success', apiController.getPayPalSuccess);
+app.get('/admin/api/paypal/cancel', apiController.getPayPalCancel);
+app.get('/admin/api/lob', apiController.getLob);
+app.get('/admin/api/upload', apiController.getFileUpload);
+app.post('/admin/api/upload', upload.single('myFile'), apiController.postFileUpload);
+app.get('/admin/api/pinterest', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getPinterest);
+app.post('/admin/api/pinterest', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.postPinterest);
+app.get('/admin/api/google-maps', apiController.getGoogleMaps);
 
 /**
  * OAuth authentication routes. (Sign in)
  */
-app.get('/auth/instagram', passport.authenticate('instagram'));
-app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
+app.get('/admin/auth/instagram', passport.authenticate('instagram'));
+app.get('/admin/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/admin/login' }), (req, res) => {
+  res.redirect(req.session.returnTo || '/admin/');
 });
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
+app.get('/admin/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
+app.get('/admin/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/admin/login' }), (req, res) => {
+  res.redirect(req.session.returnTo || '/admin/');
 });
-app.get('/auth/github', passport.authenticate('github'));
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
+app.get('/admin/auth/github', passport.authenticate('github'));
+app.get('/admin/auth/github/callback', passport.authenticate('github', { failureRedirect: '/admin/login' }), (req, res) => {
+  res.redirect(req.session.returnTo || '/admin/');
 });
-app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
+app.get('/admin/auth/google', passport.authenticate('google', { scope: 'profile email' }));
+app.get('/admin/auth/google/callback', passport.authenticate('google', { failureRedirect: '/admin/login' }), (req, res) => {
+  res.redirect(req.session.returnTo || '/admin/');
 });
-app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
+app.get('/admin/auth/twitter', passport.authenticate('twitter'));
+app.get('/admin/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/admin/login' }), (req, res) => {
+  res.redirect(req.session.returnTo || '/admin/');
 });
-app.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'SOME STATE' }));
-app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
+app.get('/admin/auth/linkedin', passport.authenticate('linkedin', { state: 'SOME STATE' }));
+app.get('/admin/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/admin/login' }), (req, res) => {
+  res.redirect(req.session.returnTo || '/admin/');
 });
 
 /**
  * OAuth authorization routes. (API examples)
  */
-app.get('/auth/foursquare', passport.authorize('foursquare'));
-app.get('/auth/foursquare/callback', passport.authorize('foursquare', { failureRedirect: '/api' }), (req, res) => {
-  res.redirect('/api/foursquare');
+app.get('/admin/auth/foursquare', passport.authorize('foursquare'));
+app.get('/admin/auth/foursquare/callback', passport.authorize('foursquare', { failureRedirect: '/admin/api' }), (req, res) => {
+  res.redirect('/admin/api/foursquare');
 });
-app.get('/auth/tumblr', passport.authorize('tumblr'));
-app.get('/auth/tumblr/callback', passport.authorize('tumblr', { failureRedirect: '/api' }), (req, res) => {
-  res.redirect('/api/tumblr');
+app.get('/admin/auth/tumblr', passport.authorize('tumblr'));
+app.get('/admin/auth/tumblr/callback', passport.authorize('tumblr', { failureRedirect: '/admin/api' }), (req, res) => {
+  res.redirect('/admin/api/tumblr');
 });
-app.get('/auth/steam', passport.authorize('openid', { state: 'SOME STATE' }));
-app.get('/auth/steam/callback', passport.authorize('openid', { failureRedirect: '/api' }), (req, res) => {
+app.get('/admin/auth/steam', passport.authorize('openid', { state: 'SOME STATE' }));
+app.get('/admin/auth/steam/callback', passport.authorize('openid', { failureRedirect: '/admin/api' }), (req, res) => {
   res.redirect(req.session.returnTo);
 });
-app.get('/auth/pinterest', passport.authorize('pinterest', { scope: 'read_public write_public' }));
-app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect('/api/pinterest');
+app.get('/admin/auth/pinterest', passport.authorize('pinterest', { scope: 'read_public write_public' }));
+app.get('/admin/auth/pinterest/callback', passport.authorize('pinterest', { failureRedirect: '/admin/login' }), (req, res) => {
+  res.redirect('/admin/api/pinterest');
 });
 
 /**
