@@ -1,50 +1,50 @@
 const request = require('supertest');
 const app = require('../app.js');
 
-describe('GET /', () => {
+describe('GET /admin/', () => {
   it('should return 200 OK', (done) => {
     request(app)
-      .get('/')
+      .get('/admin/')
       .expect(200, done());
   });
 });
 
-describe('GET /login', () => {
+describe('GET /admin/login', () => {
   it('should return 200 OK', (done) => {
     request(app)
-      .get('/login')
+      .get('/admin/login')
       .expect(200, done());
   });
 });
 
-describe('GET /signup', () => {
+describe('GET /admin/signup', () => {
   it('should return 200 OK', (done) => {
     request(app)
-      .get('/signup')
+      .get('/admin/signup')
       .expect(200, done());
   });
 });
 
-describe('GET /api', () => {
+describe('GET /admin/api', () => {
   it('should return 200 OK', (done) => {
     request(app)
-      .get('/api')
+      .get('/admin/api')
       .expect(200, done());
   });
 });
 
-describe('GET /contact', () => {
+describe('GET /admin/contact', () => {
   it('should return 200 OK', (done) => {
     request(app)
-      .get('/contact')
+      .get('/admin/contact')
       .expect(200, done());
   });
 });
 
-describe('GET /random-url', () => {
+describe('GET /admin/random-url', () => {
   it('should return 404', (done) => {
     request(app)
-      .get('/reset')
+      .get('/admin/reset')
       .expect(404, done());
   });
 });
