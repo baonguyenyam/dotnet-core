@@ -45,7 +45,7 @@ gulp.task('babel', function () {
 		.pipe(gulp.dest('public/js'))
 });
 
-gulp.task('concat', function () {
+gulp.task('concat:js', function () {
 	return gulp.src([
 			'node_modules/react/umd/react.production.min.js',
 			'node_modules/react-dom/umd/react-dom.production.min.js',
@@ -58,6 +58,20 @@ gulp.task('concat', function () {
 		.pipe(sourcemaps.write(''))
 		.pipe(gulp.dest('public/js'))
 });
+gulp.task('concat:css', function () {
+	return gulp.src([
+			"node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-solid.css",
+			"node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-regular.css",
+			"node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-brands.css",
+			"node_modules/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css",
+		])
+		.pipe(!config.production ? sourcemaps.init({
+			loadMaps: true
+		}) : minifyCSS())
+		.pipe(concat('core.css'))
+		.pipe(sourcemaps.write(''))
+		.pipe(gulp.dest('public/css'))
+});
 
 gulp.task('watch', function () {
 	gulp.watch('client/javascript/*.js', ['babel']);
@@ -67,7 +81,8 @@ gulp.task('watch', function () {
 gulp.task('default', function (callback) {
 	runSequence(
 		'clean',
-		'concat',
+		'concat:js',
+		'concat:css',
 		'sass',
 		'babel',
 		'watch',
