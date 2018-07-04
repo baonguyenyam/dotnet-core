@@ -1,12 +1,12 @@
 {
-  "name": "hackathon-starter",
+  "name": "nodejs-app",
   "version": "5.1.0",
   "description": "A boilerplate for Node.js web applications",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
+    "url": "https://github.com/baonguyenyam/nodejs-app.git"
   },
-  "author": "Sahat Yalkabov",
+  "author": "Bao Nguyen",
   "license": "MIT",
   "scripts": {
     "postinstall": "cp node_modules/popper.js/dist/popper.min.* public/js/lib && cp node_modules/bootstrap/dist/js/bootstrap.min.* public/js/lib && cp node_modules/jquery/dist/jquery.min.* public/js/lib && npm rebuild node-sass",
