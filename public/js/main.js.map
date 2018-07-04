@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.js"],"names":["$","document","ready"],"mappings":";;AAAAA,EAAEC,QAAF,EAAYC,KAAZ,CAAkB,YAAM,CAEvB,CAFD","file":"main.js","sourcesContent":["$(document).ready(() => {\n\n});\n"]}

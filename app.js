@@ -30,10 +30,10 @@ dotenv.load({ path: '.env.example' });
 /**
  * Controllers (route handlers).
  */
-const homeController = require('./controllers/home');
-const userController = require('./controllers/user');
-const apiController = require('./controllers/api');
-const contactController = require('./controllers/contact');
+const homeController = require('./client/app/controllers/home');
+const userController = require('./client/app/controllers/user');
+const apiController = require('./client/app/controllers/api');
+const contactController = require('./client/app/controllers/contact');
 
 /**
  * API keys and Passport configuration.
@@ -65,7 +65,7 @@ app.set('view engine', 'pug');
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(sass({
-  src: path.join(__dirname, 'public'),
+  src: path.join(__dirname, 'client', 'styles'),
   dest: path.join(__dirname, 'public')
 }));
 app.use(logger('dev'));
