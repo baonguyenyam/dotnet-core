@@ -18,7 +18,7 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const multer = require('multer');
-
+const reactViews = require('express-react-views');
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
@@ -60,7 +60,8 @@ mongoose.connection.on('error', (err) => {
 app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
 app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'jsx');
+app.engine('jsx', reactViews.createEngine({ beautify: true }));
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));
